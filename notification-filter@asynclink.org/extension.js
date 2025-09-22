@@ -110,10 +110,14 @@ let customUpdateState = function() {
  * Returns whether the given stringToTest contains the filter. If use_regex is true than a Regular Expression is used for the match.
  */
 function testMatch(stringToTest, filter, use_regex = false) {
-  // Check to see if regex support is enabled, and if so use it.
-  if (use_regex) {
-    const regex = new RegExp(filter);
-    return regex.test(stringToTest);
+  if( typeof stringToTest == 'string' || stringToTest instanceof String ) {
+    // Check to see if regex support is enabled, and if so use it.
+    if (use_regex) {
+      const regex = new RegExp(filter);
+      return regex.test(stringToTest);
+    }
+    return stringToTest.includes(filter);
+  } else {
+    return false;
   }
-  return stringToTest.includes(filter);
 }
